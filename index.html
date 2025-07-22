@@ -1,21 +1,701 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRIMEBODY - Entrena, Gana y Conquista tus Metas</title>
-    <link rel="stylesheet" href="./styles.css">
+    <title>PRIMEBODY - Train, Earn, and Conquer Your Goals</title>
+    <meta name="description" content="Revolutionary fitness app that rewards your workouts with cryptocurrency. Train with AI-powered routines and earn PRIME tokens on the BASE blockchain.">
+    <meta name="keywords" content="fitness, blockchain, cryptocurrency, workout, BASE, ethereum, fitness rewards">
+    <meta property="og:title" content="PRIMEBODY - Train, Earn, and Conquer Your Goals">
+    <meta property="og:description" content="The fitness revolution is here. Every drop of sweat translates into real rewards thanks to blockchain technology.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://primebody.app">
+    <style>
+        /* --- GOOGLE FONTS IMPORT --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --color-primary: #7C3AED; /* Modern purple */
+            --color-secondary: #06B6D4; /* Vibrant cyan */
+            --color-accent: #F59E0B; /* Gold accent */
+            --color-background: #0F0F23; /* Deep dark background */
+            --color-text: #F8FAFC;
+            --color-text-secondary: #CBD5E1;
+            --color-surface: #1E1B4B; /* Card surfaces */
+            --color-surface-light: #312E81;
+            --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            --gradient-hero: linear-gradient(135deg, #0F0F23 0%, #1E1B4B 50%, #312E81 100%);
+            
+            /* Animation timing and easing */
+            --animation-duration-fast: 0.8s;
+            --animation-duration-medium: 1.2s;
+            --animation-delay-short: 0.3s;
+            --animation-delay-medium: 0.5s;
+            --animation-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif; /* Modern and readable font */
+            background: var(--gradient-hero);
+            color: var(--color-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        /* --- KEYFRAME ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation classes */
+        .hero-animate {
+            opacity: 0; /* Start hidden */
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp var(--animation-duration-medium) var(--animation-easing) forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn var(--animation-duration-fast) var(--animation-easing) forwards;
+        }
+
+        .animate-slide-in-up {
+            animation: slideInUp var(--animation-duration-fast) var(--animation-easing) forwards;
+        }
+
+        /* Respect reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .hero-animate {
+                opacity: 1;
+                transform: none;
+                animation: none;
+            }
+        }
+
+        /* --- GENERAL STYLES --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+            letter-spacing: 0.025em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.025em;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-secondary);
+            border: 2px solid var(--color-secondary);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-secondary);
+            color: var(--color-background);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--color-secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--gradient-hero); /* Enhanced gradient background */
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(18, 18, 18, 0.85) 0%,
+                rgba(18, 18, 18, 0.65) 40%,
+                rgba(18, 18, 18, 0.75) 70%,
+                rgba(18, 18, 18, 0.9) 100%
+            );
+            z-index: 1;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-video, .hero-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .subtext {
+            position: relative; /* Changed from absolute */
+            z-index: 2; /* Above the gradient overlay */
+            width: 90%;
+            max-width: 1200px;
+            padding: 60px 0; /* Add padding for spacing */
+        }
+        
+        .hero .subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            margin-bottom: 32px;
+            letter-spacing: 0.025em;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-buttons {
+            margin-top: 20px;
+        }
+
+        /* --- FEATURES SECTION --- */
+        .features {
+            background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-light) 100%);
+            position: relative;
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 48px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
+            border-color: rgba(124, 58, 237, 0.3);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .feature-card p {
+            font-size: 1rem;
+        }
+
+        /* --- TECHNOLOGY SECTION --- */
+        .tech-section {
+            background: var(--gradient-hero);
+            position: relative;
+        }
+        
+        .tech-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .tech-info, .tech-logos {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .tech-info h2 {
+            text-align: left;
+        }
+        
+        .tech-info p {
+            text-align: left;
+            max-width: 100%;
+        }
+        
+        .tech-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .tech-logos img {
+            max-width: 100px;
+            height: auto;
+            filter: grayscale(100%) brightness(150%);
+            transition: filter 0.3s ease;
+        }
+        
+        .tech-logos img:hover {
+            filter: none;
+        }
+
+
+        /* --- COMMUNITY SECTION --- */
+        .community {
+            background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-light) 100%);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: rgba(15, 15, 35, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 32px;
+            border-radius: 16px;
+            border-left: 4px solid var(--color-secondary);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(6, 182, 212, 0.15);
+            border-left-color: var(--color-accent);
+        }
+        
+        .testimonial-card p {
+            font-style: italic;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: white;
+            text-align: right;
+        }
+        
+        /* --- FAQ SECTION --- */
+        .faq-container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .faq-item {
+            background: rgba(30, 27, 75, 0.8);
+            backdrop-filter: blur(10px);
+            margin-bottom: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(124, 58, 237, 0.3);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+        }
+        
+        .faq-question {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 2rem;
+            color: var(--color-primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .faq-answer p {
+            padding: 0 20px 20px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* Adjust as needed based on content */
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+        
+        /* --- CALL TO ACTION (CTA) SECTION --- */
+        .cta {
+            background: var(--gradient-primary);
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .cta h2, .cta p {
+            color: white;
+        }
+        
+        .cta-form {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .cta-form input[type="email"] {
+            padding: 15px;
+            min-width: 300px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .cta-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn-cta {
+            background-color: white;
+            color: var(--color-primary);
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-cta:hover {
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        }
+
+
+        /* --- FOOTER --- */
+        .footer {
+            background: var(--color-surface);
+            text-align: center;
+            padding: 48px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links a {
+            color: var(--color-text-secondary);
+            font-size: 1.5rem;
+            margin: 0 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .social-links a:hover {
+            color: var(--color-secondary);
+            background: rgba(6, 182, 212, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .footer-links {
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            margin: 0 16px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 20px;
+        }
+        
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .navbar { 
+                flex-direction: column; 
+                gap: 15px;
+            }
+            .nav-links { 
+                margin-top: 15px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a { margin: 5px 10px; }
+            
+            .hero {
+                padding-top: 150px; /* Ensure content is below fixed header */
+            }
+
+            .hero-buttons { 
+                display: flex; 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 15px; 
+            }
+            .btn-secondary { margin-left: 0; }
+
+            .tech-content { flex-direction: column; }
+            .tech-info h2, .tech-info p { text-align: center; }
+
+            .cta-form input[type="email"] {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+
+    </style>
 </head>
 <body>
 
     <!-- ======== HEADER ======== -->
     <header class="header">
         <nav class="navbar">
-            <a href="#" class="logo">[PRIMEBODY]</a>
+            <a href="#home" class="logo">[PRIMEBODY]</a>
             <div class="nav-links">
-                <a href="#features">¿Cómo Funciona?</a>
-                <a href="#tech">Tecnología</a>
-                <a href="#community">Comunidad</a>
+                <a href="#features">How It Works</a>
+                <a href="#tech">Technology</a>
+                <a href="#community">Community</a>
                 <a href="#faq">FAQ</a>
             </div>
         </nav>
@@ -23,13 +703,19 @@
 
     <!-- ======== HERO SECTION ======== -->
     <section id="home" class="hero">
-        <img class="hero-bg" src="https://images.unsplash.com/photo-1602959177116-9d0296b6ad4b?q=80&w=1683&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="hero sports"/>
+        <div class="hero-background">
+            <video class="hero-video" autoplay muted loop playsinline style="display: none;">
+                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_720x480_1mb.mp4" type="video/mp4">
+                Tu navegador no soporta video HTML5.
+            </video>
+            <img class="hero-bg" src="https://via.placeholder.com/1920x1080/121212/FFFFFF?text=Fallback+Image" alt="Portada PrimeBody"/>
+        </div>
         <div class="container subtext">
-            <h1 class="title">Entrena, Gana y Conquista tus Metas</h1>
-            <p class="subtitle">La revolución del fitness ha llegado. Cada gota de sudor se traduce en recompensas reales gracias al poder de la blockchain sobre BASE.</p>
-            <div class="hero-buttons">
-                <a href="#cta" class="btn btn-principal">Regístrate para el Acceso Anticipado</a>
-                <a href="#features" class="btn btn-secundario">Descubre Cómo Funciona</a>
+            <h1 class="hero-animate" data-animation="fadeInUp" data-delay="0">Train, Earn, and Conquer Your Goals</h1>
+            <p class="hero-animate" data-animation="fadeInUp" data-delay="300">The fitness revolution is here. Every drop of sweat translates into real rewards thanks to the power of blockchain technology on BASE.</p>
+            <div class="hero-buttons hero-animate" data-animation="slideInUp" data-delay="500">
+                <a href="#cta" class="btn btn-primary">Get Early Access</a>
+                <a href="#features" class="btn btn-secondary">Discover How It Works</a>
             </div>
         </div>
     </section>
@@ -37,22 +723,22 @@
     <!-- ======== FEATURES SECTION ======== -->
     <section id="features" class="features">
         <div class="container">
-            <h2>¿Cómo Revolucionamos tu Entrenamiento?</h2>
+            <h2>How We Revolutionize Your Training</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="icon">👟</div>
-                    <h3>Entrena con Rutinas Personalizadas</h3>
-                    <p>Nuestra IA crea planes de entrenamiento adaptados a tus objetivos y condición física, desde principiante hasta atleta.</p>
+                    <h3>Train with Personalized Routines</h3>
+                    <p>Our AI creates workout plans tailored to your goals and fitness level, from beginner to elite athlete.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon">📈</div>
-                    <h3>Registra tu Actividad sin Esfuerzo</h3>
-                    <p>Sincroniza tus wearables y dispositivos. La app registra automáticamente tus entrenamientos y progreso.</p>
+                    <h3>Track Your Activity Effortlessly</h3>
+                    <p>Sync your wearables and devices. The app automatically records your workouts and progress.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon">🏆</div>
-                    <h3>Gana Tokens por Cada Meta Cumplida</h3>
-                    <p>Por cada logro, recibirás [Nombre del Token], nuestra criptomoneda nativa, como recompensa a tu dedicación.</p>
+                    <h3>Earn Tokens for Every Goal Achieved</h3>
+                    <p>For every achievement, you'll receive [PRIME], our native cryptocurrency, as a reward for your dedication.</p>
                 </div>
             </div>
         </div>
@@ -60,15 +746,16 @@
 
     <!-- ======== TECHNOLOGY SECTION ======== -->
     <section id="tech" class="tech-section">
-        <div class="container tech-content">
-            <div class="tech-info">
-                <h2>Construido sobre BASE: Rápido, Seguro y de Bajo Costo</h2>
-                <p>Elegimos BASE, la solución de Capa 2 de Ethereum, para garantizar que tu experiencia sea impecable. Disfruta de transacciones casi instantáneas con tarifas mínimas, todo respaldado por la seguridad robusta de la red Ethereum.</p>
-            </div>
-            <div class="tech-logos">
-                <!-- Nota: Reemplaza estos src con URLs reales de los logos SVG o PNG -->
-                <img src="https://www.vectorlogo.zone/logos/ethereum/ethereum-icon.svg" alt="Logo de Ethereum">
-                <img src="https://www.vectorlogo.zone/logos/base/base-icon.svg" alt="Logo de BASE">
+        <div class="container">
+            <div class="tech-content">
+                <div class="tech-info">
+                    <h2>Built on BASE: Fast, Secure, and Low-Cost</h2>
+                    <p>We chose BASE, Ethereum's Layer 2 solution, to ensure your experience is seamless. Enjoy near-instant transactions with minimal fees, all backed by the robust security of the Ethereum network.</p>
+                </div>
+                <div class="tech-logos">
+                    <img src="https://www.vectorlogo.zone/logos/ethereum/ethereum-icon.svg" alt="Ethereum Logo">
+                    <img src="https://base.org/images/logo-wordmark.svg" alt="BASE Logo">
+                </div>
             </div>
         </div>
     </section>
@@ -76,19 +763,19 @@
     <!-- ======== COMMUNITY & TESTIMONIALS ======== -->
     <section id="community" class="community">
         <div class="container">
-            <h2>Más que una App, una Comunidad</h2>
-            <p>Únete a miles de usuarios que están llevando su bienestar al siguiente nivel.</p>
+            <h2>More Than an App, a Community</h2>
+            <p>Join thousands of users who are taking their wellness to the next level.</p>
             <div class="testimonial-grid">
                 <div class="testimonial-card">
-                    <p>"¡Increíble! Nunca había estado tan motivado para ir al gimnasio. Ver cómo mis tokens aumentan es el mejor incentivo."</p>
+                    <p>"Amazing! I've never been so motivated to go to the gym. Watching my tokens grow is the best incentive."</p>
                     <div class="testimonial-author">- Alex R.</div>
                 </div>
                 <div class="testimonial-card">
-                    <p>"La personalización de las rutinas es fantástica. Siento que tengo un entrenador personal en mi bolsillo, ¡y además me paga por entrenar!"</p>
-                    <div class="testimonial-author">- Sofía G.</div>
+                    <p>"The routine personalization is fantastic. I feel like I have a personal trainer in my pocket, and it pays me to work out!"</p>
+                    <div class="testimonial-author">- Sofia G.</div>
                 </div>
                 <div class="testimonial-card">
-                    <p>"Al principio dudaba de lo 'crypto', pero la app lo hace todo tan fácil. He canjeado mis tokens por un nuevo mat de yoga. ¡Funciona!"</p>
+                    <p>"I was skeptical about the 'crypto' aspect at first, but the app makes everything so easy. I've redeemed my tokens for a new yoga mat. It works!"</p>
                     <div class="testimonial-author">- Carlos M.</div>
                 </div>
             </div>
@@ -98,24 +785,24 @@
     <!-- ======== FAQ SECTION ======== -->
     <section id="faq" class="faq">
         <div class="container">
-            <h2>Preguntas Frecuentes</h2>
+            <h2>Frequently Asked Questions</h2>
             <div class="faq-container">
                 <div class="faq-item">
-                    <button class="faq-question">¿Qué es un token?</button>
+                    <button class="faq-question">What is a token?</button>
                     <div class="faq-answer">
-                        <p>Un token es un activo digital que representa un valor o utilidad dentro de nuestra plataforma. En nuestro caso, representa tu esfuerzo y dedicación, y puedes usarlo para obtener beneficios y productos reales.</p>
+                        <p>A token is a digital asset that represents value or utility within our platform. In our case, it represents your effort and dedication, and you can use it to obtain real benefits and products.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">¿Necesito saber de criptomonedas para usar la app?</button>
+                    <button class="faq-question">Do I need to know about cryptocurrencies to use the app?</button>
                     <div class="faq-answer">
-                        <p>¡No! Hemos diseñado una experiencia intuitiva para que puedas disfrutar de los beneficios de la tecnología blockchain sin complicaciones. Nosotros nos encargamos de la complejidad técnica.</p>
+                        <p>No! We've designed an intuitive experience so you can enjoy the benefits of blockchain technology without complications. We handle the technical complexity for you.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">¿Qué es BASE?</button>
+                    <button class="faq-question">What is BASE?</button>
                     <div class="faq-answer">
-                        <p>BASE es una red de "Capa 2" construida sobre Ethereum. Esto significa que ofrece transacciones mucho más rápidas y económicas, manteniendo la alta seguridad y descentralización de la red Ethereum.</p>
+                        <p>BASE is a Layer 2 network built on Ethereum. This means it offers much faster and cheaper transactions while maintaining the high security and decentralization of the Ethereum network.</p>
                     </div>
                 </div>
             </div>
@@ -125,11 +812,11 @@
     <!-- ======== CTA SECTION ======== -->
     <section id="cta" class="cta">
         <div class="container">
-            <h2>Prepárate para Desbloquear tu Potencial</h2>
-            <p>El futuro del fitness está aquí. Únete a la lista de espera y sé de los primeros en experimentar una forma revolucionaria de entrenar.</p>
-            <form class="cta-form">
-                <input type="email" placeholder="Introduce tu correo electrónico" required>
-                <button type="submit" class="btn btn-cta">Notifíquenme</button>
+            <h2>Get Ready to Unlock Your Potential</h2>
+            <p>The future of fitness is here. Join the waitlist and be among the first to experience a revolutionary way to train.</p>
+            <form class="cta-form" onsubmit="event.preventDefault(); alert('Thank you for signing up!');">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-cta">Notify Me</button>
             </form>
         </div>
     </section>
@@ -138,49 +825,143 @@
     <footer class="footer">
         <div class="container">
             <div class="social-links">
-                <!-- Reemplaza '#' con tus enlaces reales -->
                 <a href="#" aria-label="Twitter">X</a>
                 <a href="#" aria-label="Instagram">IG</a>
                 <a href="#" aria-label="Discord">DS</a>
             </div>
             <div class="footer-links">
-                <a href="#">Términos y Condiciones</a>
-                <a href="#">Política de Privacidad</a>
-                <a href="#">Contacto</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact</a>
             </div>
-            <p class="copyright">© 2025 [Nombre de tu App]. Todos los derechos reservados.</p>
+            <p class="copyright">© 2025 PRIMEBODY. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Script para el acordeón de FAQ
-        const faqItems = document.querySelectorAll('.faq-item');
+        document.addEventListener('DOMContentLoaded', () => {
 
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                // Cerrar todos los items
-                faqItems.forEach(i => i.classList.remove('active'));
-                
-                // Abrir el item clickeado si no estaba activo
-                if (!isActive) {
-                    item.classList.add('active');
+            // --- HERO ANIMATION CONTROLLER ---
+            class HeroAnimationController {
+                constructor() {
+                    this.animatedElements = document.querySelectorAll('.hero-animate');
+                    this.heroSection = document.querySelector('.hero');
+                    this.hasAnimated = false;
+                    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    
+                    this.init();
                 }
-            });
-        });
-        
-        // Script para suavizar el scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+                
+                init() {
+                    if (this.prefersReducedMotion || !("IntersectionObserver" in window)) {
+                        this.triggerAnimations(true);
+                        return;
+                    }
+                    
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !this.hasAnimated) {
+                                this.triggerAnimations();
+                                this.hasAnimated = true;
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    
+                    observer.observe(this.heroSection);
+                }
+                
+                triggerAnimations(immediate = false) {
+                    this.animatedElements.forEach(element => {
+                        const animationType = element.dataset.animation;
+                        const delay = immediate ? 0 : parseInt(element.dataset.delay, 10) || 0;
+                        
+                        setTimeout(() => {
+                            const animationClass = `animate-${this.camelToKebab(animationType)}`;
+                            element.classList.add(animationClass);
+                        }, delay);
+                    });
+                }
+                
+                camelToKebab(str) {
+                    return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+                }
+            }
+
+            // --- VIDEO BACKGROUND CONTROLLER ---
+            class VideoBackgroundController {
+                constructor() {
+                    this.video = document.querySelector('.hero-video');
+                    this.image = document.querySelector('.hero-bg');
+                    this.isMobile = window.innerWidth <= 768;
+                    this.dataSaver = navigator.connection?.saveData;
+
+                    this.init();
+                }
+
+                init() {
+                    if (this.isMobile || this.dataSaver || !this.video) {
+                        this.useImageBackground();
+                        return;
+                    }
+
+                    this.setupVideo();
+                }
+
+                setupVideo() {
+                    this.video.addEventListener('loadeddata', () => {
+                        this.video.style.display = 'block';
+                        this.image.style.display = 'none';
+                    });
+
+                    this.video.addEventListener('error', (e) => {
+                        console.warn('Video could not be loaded, falling back to image.', e);
+                        this.useImageBackground();
+                    });
+
+                    // Set source to start loading
+                    if (this.video.currentSrc === '') {
+                        this.video.load();
+                    }
+                }
+                
+                useImageBackground() {
+                    this.video.style.display = 'none';
+                    this.image.style.display = 'block';
+                }
+            }
+
+            // --- FAQ ACCORDION ---
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.faq-item.active');
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    item.classList.toggle('active');
                 });
             });
-        });
 
+            // --- SMOOTH SCROLL ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- INITIALIZE CONTROLLERS ---
+            new HeroAnimationController();
+            new VideoBackgroundController();
+        });
     </script>
 </body>
 </html>
