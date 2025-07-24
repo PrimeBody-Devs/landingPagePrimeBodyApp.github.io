@@ -10,694 +10,33 @@
     <meta property="og:description" content="The fitness revolution is here. Every drop of sweat translates into real rewards thanks to blockchain technology.">
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://primebody.app">
-    <style>
-        /* --- GOOGLE FONTS IMPORT --- */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;600;700&display=swap');
-
-        :root {
-            --color-primary: #7C3AED; /* Modern purple */
-            --color-secondary: #06B6D4; /* Vibrant cyan */
-            --color-accent: #F59E0B; /* Gold accent */
-            --color-background: #0F0F23; /* Deep dark background */
-            --color-text: #F8FAFC;
-            --color-text-secondary: #CBD5E1;
-            --color-surface: #1E1B4B; /* Card surfaces */
-            --color-surface-light: #312E81;
-            --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-            --gradient-hero: linear-gradient(135deg, #0F0F23 0%, #1E1B4B 50%, #312E81 100%);
-            
-            /* Animation timing and easing */
-            --animation-duration-fast: 0.8s;
-            --animation-duration-medium: 1.2s;
-            --animation-delay-short: 0.3s;
-            --animation-delay-medium: 0.5s;
-            --animation-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Poppins', sans-serif; /* Modern and readable font */
-            background: var(--gradient-hero);
-            color: var(--color-text);
-            line-height: 1.7;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-        
-        /* --- KEYFRAME ANIMATIONS --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Animation classes */
-        .hero-animate {
-            opacity: 0; /* Start hidden */
-        }
-        
-        .animate-fade-in-up {
-            animation: fadeInUp var(--animation-duration-medium) var(--animation-easing) forwards;
-        }
-
-        .animate-fade-in {
-            animation: fadeIn var(--animation-duration-fast) var(--animation-easing) forwards;
-        }
-
-        .animate-slide-in-up {
-            animation: slideInUp var(--animation-duration-fast) var(--animation-easing) forwards;
-        }
-
-        /* Respect reduced motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-            .hero-animate {
-                opacity: 1;
-                transform: none;
-                animation: none;
-            }
-        }
-
-        /* --- GENERAL STYLES --- */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        h1, h2, h3 {
-            font-weight: 700;
-            color: white;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-        }
-
-        p {
-            font-size: 1.125rem;
-            color: var(--color-text-secondary);
-            margin-bottom: 24px;
-            text-align: center;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 400;
-            letter-spacing: 0.025em;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: none;
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 0.025em;
-        }
-
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--color-secondary);
-            border: 2px solid var(--color-secondary);
-            margin-left: 15px;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--color-secondary);
-            color: var(--color-background);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
-        }
-
-        section {
-            padding: 80px 0;
-        }
-
-        /* --- HEADER --- */
-        .header {
-            background: rgba(18, 18, 18, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-
-        .nav-links a {
-            color: var(--color-text);
-            text-decoration: none;
-            margin-left: 30px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-links a:hover {
-            color: var(--color-secondary);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--gradient-primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-
-        /* --- HERO SECTION --- */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: var(--gradient-hero); /* Enhanced gradient background */
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(18, 18, 18, 0.85) 0%,
-                rgba(18, 18, 18, 0.65) 40%,
-                rgba(18, 18, 18, 0.75) 70%,
-                rgba(18, 18, 18, 0.9) 100%
-            );
-            z-index: 1;
-        }
-        
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .hero-video, .hero-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .subtext {
-            position: relative; /* Changed from absolute */
-            z-index: 2; /* Above the gradient overlay */
-            width: 90%;
-            max-width: 1200px;
-            padding: 60px 0; /* Add padding for spacing */
-        }
-        
-        .hero .subtitle {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--color-text-secondary);
-            margin-bottom: 32px;
-            letter-spacing: 0.025em;
-        }
-
-        .hero p {
-            max-width: 650px;
-            margin-bottom: 40px;
-        }
-        
-        .hero-buttons {
-            margin-top: 20px;
-        }
-
-        /* --- FEATURES SECTION --- */
-        .features {
-            background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-light) 100%);
-            position: relative;
-        }
-        
-        .features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--gradient-primary);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .feature-card {
-            background: rgba(15, 15, 35, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 48px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-primary);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
-            border-color: rgba(124, 58, 237, 0.3);
-        }
-        
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-card .icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            color: white;
-        }
-        
-        .feature-card p {
-            font-size: 1rem;
-        }
-
-        /* --- TECHNOLOGY SECTION --- */
-        .tech-section {
-            background: var(--gradient-hero);
-            position: relative;
-        }
-        
-        .tech-content {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 60px;
-        }
-        
-        .tech-info, .tech-logos {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .tech-info h2 {
-            text-align: left;
-        }
-        
-        .tech-info p {
-            text-align: left;
-            max-width: 100%;
-        }
-        
-        .tech-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-        }
-        
-        .tech-logos img {
-            max-width: 100px;
-            height: auto;
-            filter: grayscale(100%) brightness(150%);
-            transition: filter 0.3s ease;
-        }
-        
-        .tech-logos img:hover {
-            filter: none;
-        }
-
-
-        /* --- COMMUNITY SECTION --- */
-        .community {
-            background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-light) 100%);
-        }
-        
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .testimonial-card {
-            background: rgba(15, 15, 35, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 32px;
-            border-radius: 16px;
-            border-left: 4px solid var(--color-secondary);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(6, 182, 212, 0.15);
-            border-left-color: var(--color-accent);
-        }
-        
-        .testimonial-card p {
-            font-style: italic;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-author {
-            font-weight: 600;
-            color: white;
-            text-align: right;
-        }
-        
-        /* --- FAQ SECTION --- */
-        .faq-container {
-            max-width: 800px;
-            margin: auto;
-        }
-
-        .faq-item {
-            background: rgba(30, 27, 75, 0.8);
-            backdrop-filter: blur(10px);
-            margin-bottom: 16px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .faq-item:hover {
-            border-color: rgba(124, 58, 237, 0.3);
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
-        }
-        
-        .faq-question {
-            width: 100%;
-            background: transparent;
-            border: none;
-            padding: 20px;
-            text-align: left;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .faq-question::after {
-            content: '+';
-            font-size: 2rem;
-            color: var(--color-primary);
-            transition: transform 0.3s ease;
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-
-        .faq-answer p {
-            padding: 0 20px 20px;
-            text-align: left;
-            font-size: 1rem;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 200px; /* Adjust as needed based on content */
-        }
-
-        .faq-item.active .faq-question::after {
-            transform: rotate(45deg);
-        }
-        
-        /* --- CALL TO ACTION (CTA) SECTION --- */
-        .cta {
-            background: var(--gradient-primary);
-            text-align: center;
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .cta h2, .cta p {
-            color: white;
-        }
-        
-        .cta-form {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .cta-form input[type="email"] {
-            padding: 15px;
-            min-width: 300px;
-            border-radius: 50px;
-            border: none;
-            font-size: 1rem;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        
-        .cta-form input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .btn-cta {
-            background-color: white;
-            color: var(--color-primary);
-            font-weight: 700;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-        }
-        
-        .btn-cta:hover {
-            background-color: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
-        }
-
-
-        /* --- FOOTER --- */
-        .footer {
-            background: var(--color-surface);
-            text-align: center;
-            padding: 48px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .social-links a {
-            color: var(--color-text-secondary);
-            font-size: 1.5rem;
-            margin: 0 16px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        .social-links a:hover {
-            color: var(--color-secondary);
-            background: rgba(6, 182, 212, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .footer-links {
-            margin: 20px 0;
-        }
-        
-        .footer-links a {
-            color: var(--color-text-secondary);
-            text-decoration: none;
-            margin: 0 16px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-        
-        .copyright {
-            font-size: 0.9rem;
-            color: #777;
-            margin-top: 20px;
-        }
-        
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            
-            .navbar { 
-                flex-direction: column; 
-                gap: 15px;
-            }
-            .nav-links { 
-                margin-top: 15px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .nav-links a { margin: 5px 10px; }
-            
-            .hero {
-                padding-top: 150px; /* Ensure content is below fixed header */
-            }
-
-            .hero-buttons { 
-                display: flex; 
-                flex-direction: column; 
-                align-items: center; 
-                gap: 15px; 
-            }
-            .btn-secondary { margin-left: 0; }
-
-            .tech-content { flex-direction: column; }
-            .tech-info h2, .tech-info p { text-align: center; }
-
-            .cta-form input[type="email"] {
-                width: 100%;
-                min-width: unset;
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <!-- ======== HEADER ======== -->
     <header class="header">
         <nav class="navbar">
-            <a href="#home" class="logo">[PRIMEBODY]</a>
+            <a href="#home" class="logo">
+                    <svg width="180" height="32" viewBox="0 0 180 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="24" font-family="'Poppins', sans-serif" font-size="24" font-weight="700" fill="white">PRIME</text>
+                        <text x="85" y="24" font-family="'Poppins', sans-serif" font-size="24" font-weight="700" fill="#06B6D4">BODY</text>
+                        <rect x="82" y="4" width="3" height="24" fill="#7C3AED" rx="1.5"></rect>
+                    </svg>
+                </a>
             <div class="nav-links">
                 <a href="#features">How It Works</a>
                 <a href="#tech">Technology</a>
                 <a href="#community">Community</a>
                 <a href="#faq">FAQ</a>
             </div>
+            <button class="menu-btn" aria-label="Open menu">
+                  <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="3" y1="12" x2="21" y2="12"></line>
+                      <line x1="3" y1="6" x2="21" y2="6"></line>
+                      <line x1="3" y1="18" x2="21" y2="18"></line>
+                  </svg>
+              </button>
         </nav>
     </header>
 
@@ -705,8 +44,8 @@
     <section id="home" class="hero">
         <div class="hero-background">
             <video class="hero-video" autoplay muted loop playsinline style="display: none;">
-                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_720x480_1mb.mp4" type="video/mp4">
-                Tu navegador no soporta video HTML5.
+                <source src="https://videos.pexels.com/video-files/853834/853834-hd.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
             </video>
             <img class="hero-bg" src="https://via.placeholder.com/1920x1080/121212/FFFFFF?text=Fallback+Image" alt="Portada PrimeBody"/>
         </div>
@@ -726,17 +65,23 @@
             <h2>How We Revolutionize Your Training</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="icon">👟</div>
+                    <div class="icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5c0 1.66-1.34 3-3 3s-3-1.34-3-3a5 5 0 0 1 5-5z"/><path d="M20.59 7.51l-1.18-1.18a2 2 0 0 0-2.83 0L12 11 7.41 6.33a2 2 0 0 0-2.83 0L3.41 7.51a2 2 0 0 0 0 2.83L12 19l8.59-8.66a2 2 0 0 0 0-2.83z"/></svg>
+                    </div>
                     <h3>Train with Personalized Routines</h3>
                     <p>Our AI creates workout plans tailored to your goals and fitness level, from beginner to elite athlete.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">📈</div>
+                    <div class="icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
                     <h3>Track Your Activity Effortlessly</h3>
                     <p>Sync your wearables and devices. The app automatically records your workouts and progress.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">🏆</div>
+                    <div class="icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8v4H4v8h4v4h8v-4h4V8h-4z"/><path d="M8 8H4v8h4V8z"/><path d="M16 8h4v8h-4V8z"/></svg>
+                    </div>
                     <h3>Earn Tokens for Every Goal Achieved</h3>
                     <p>For every achievement, you'll receive [PRIME], our native cryptocurrency, as a reward for your dedication.</p>
                 </div>
@@ -814,10 +159,11 @@
         <div class="container">
             <h2>Get Ready to Unlock Your Potential</h2>
             <p>The future of fitness is here. Join the waitlist and be among the first to experience a revolutionary way to train.</p>
-            <form class="cta-form" onsubmit="event.preventDefault(); alert('Thank you for signing up!');">
+            <form class="cta-form">
                 <input type="email" placeholder="Enter your email address" required>
                 <button type="submit" class="btn btn-cta">Notify Me</button>
             </form>
+            <div id="form-message" class="form-message"></div>
         </div>
     </section>
     
@@ -825,9 +171,15 @@
     <footer class="footer">
         <div class="container">
             <div class="social-links">
-                <a href="#" aria-label="Twitter">X</a>
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Discord">DS</a>
+                <a href="#" aria-label="Twitter">
+                    <img src="./IMGs/x.svg" alt="Twitter icon" width="24" height="24">
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <img src="./IMGs/instagram.svg" alt="Instagram icon" width="24" height="24">
+                </a>
+                <a href="#" aria-label="Discord">
+                    <img src="./IMGs/discord.svg" alt="Discord icon" width="24" height="24">
+                </a>
             </div>
             <div class="footer-links">
                 <a href="#">Terms & Conditions</a>
@@ -838,130 +190,6 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // --- HERO ANIMATION CONTROLLER ---
-            class HeroAnimationController {
-                constructor() {
-                    this.animatedElements = document.querySelectorAll('.hero-animate');
-                    this.heroSection = document.querySelector('.hero');
-                    this.hasAnimated = false;
-                    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                    
-                    this.init();
-                }
-                
-                init() {
-                    if (this.prefersReducedMotion || !("IntersectionObserver" in window)) {
-                        this.triggerAnimations(true);
-                        return;
-                    }
-                    
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting && !this.hasAnimated) {
-                                this.triggerAnimations();
-                                this.hasAnimated = true;
-                                observer.unobserve(entry.target);
-                            }
-                        });
-                    }, { threshold: 0.1 });
-                    
-                    observer.observe(this.heroSection);
-                }
-                
-                triggerAnimations(immediate = false) {
-                    this.animatedElements.forEach(element => {
-                        const animationType = element.dataset.animation;
-                        const delay = immediate ? 0 : parseInt(element.dataset.delay, 10) || 0;
-                        
-                        setTimeout(() => {
-                            const animationClass = `animate-${this.camelToKebab(animationType)}`;
-                            element.classList.add(animationClass);
-                        }, delay);
-                    });
-                }
-                
-                camelToKebab(str) {
-                    return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
-                }
-            }
-
-            // --- VIDEO BACKGROUND CONTROLLER ---
-            class VideoBackgroundController {
-                constructor() {
-                    this.video = document.querySelector('.hero-video');
-                    this.image = document.querySelector('.hero-bg');
-                    this.isMobile = window.innerWidth <= 768;
-                    this.dataSaver = navigator.connection?.saveData;
-
-                    this.init();
-                }
-
-                init() {
-                    if (this.isMobile || this.dataSaver || !this.video) {
-                        this.useImageBackground();
-                        return;
-                    }
-
-                    this.setupVideo();
-                }
-
-                setupVideo() {
-                    this.video.addEventListener('loadeddata', () => {
-                        this.video.style.display = 'block';
-                        this.image.style.display = 'none';
-                    });
-
-                    this.video.addEventListener('error', (e) => {
-                        console.warn('Video could not be loaded, falling back to image.', e);
-                        this.useImageBackground();
-                    });
-
-                    // Set source to start loading
-                    if (this.video.currentSrc === '') {
-                        this.video.load();
-                    }
-                }
-                
-                useImageBackground() {
-                    this.video.style.display = 'none';
-                    this.image.style.display = 'block';
-                }
-            }
-
-            // --- FAQ ACCORDION ---
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                question.addEventListener('click', () => {
-                    const currentlyActive = document.querySelector('.faq-item.active');
-                    if (currentlyActive && currentlyActive !== item) {
-                        currentlyActive.classList.remove('active');
-                    }
-                    item.classList.toggle('active');
-                });
-            });
-
-            // --- SMOOTH SCROLL ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if(targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // --- INITIALIZE CONTROLLERS ---
-            new HeroAnimationController();
-            new VideoBackgroundController();
-        });
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
